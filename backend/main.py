@@ -1,16 +1,12 @@
-import pyttsx3
 import speech_recognition as sr
 import time
 import webbrowser
 import keyboard
 import pyautogui
 import subprocess
+from commands import COMMANDS
+from voice import speak
 
-
-engine = pyttsx3.init()
-def speak(text):
-    engine.say(text)
-    engine.runAndWait()
 
 def take_command():
     recognizer = sr.Recognizer()
@@ -31,24 +27,15 @@ def take_command():
 def process_command(command):
     
     command = command.lower()
-
-    if "say hello" in command:
-        speak("Hello friend, Nice to meet you !")
-    elif "open google" in command:
-        webbrowser.open("https://www.google.com")
-    elif "open youtube" in command:
-        webbrowser.open("https://www.youtube.com")
-    elif "minimise" in command or "maximize" in command:
-        keyboard.press_and_release("win + d")
-    elif "scroll down" in command:
-        pyautogui.scroll(-500)
-    elif "scroll up" in command:
-        pyautogui.scroll(500)
-    elif "open notepad" in command:
-        subprocess.Popen("notepad.exe")
+ 
+    for query, action in COMMANDS.items():
+        if query in command:
+            action(command)
+            return
     else:
-        speak("Sorry but I am not prepared for that .")
+        speak("Sorry, but I am not prepared of that")
 
+    
 
 
 if __name__ == "__main__" :
@@ -64,8 +51,8 @@ if __name__ == "__main__" :
                 print()
                 command = take_command()
 
+                
                 if command :
-                    # print(command)
                     process_command(command)
                 else:
                     print("No command recognize !")
