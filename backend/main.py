@@ -4,7 +4,7 @@ import webbrowser
 import keyboard
 import pyautogui
 import subprocess
-from commands import COMMANDS
+from commands import *
 from voice import speak
 
 
@@ -50,6 +50,7 @@ if __name__ == "__main__" :
             while True:
                 print()
                 command = take_command()
+                print(command)
 
                 
                 if command :

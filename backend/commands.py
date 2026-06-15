@@ -1,18 +1,28 @@
-from voice import speak
 import pyautogui
 import subprocess
 import keyboard
 import webbrowser
 import time
 import sys
+import pyttsx3
+from vision.gesture_control import *
+
+engine = pyttsx3.init()
+
+def speak(text):
+    engine.say(text)
+    engine.runAndWait()
+
 
 def say_hello(command):
     speak("Hello, This is Atlas, a virtual assistance")
 
 def open_google(command):
+    speak("starting Google")
     webbrowser.open("https://www.google.com")
 
 def open_youtube(command):
+    speak("starting youtube")
     webbrowser.open("https://www.youtube.com")
 
 def open_linkdin(command):
@@ -36,12 +46,16 @@ def scroll_up(command):
 def write(command):
     keyboard.write(f"{command[5:]} \n")
 
+def gesture_control(command):
+    speak("Initializing gesture control...")
+    start_gesture_control()
+
 def exit(command):
     sys.exit()
 
 
 COMMANDS = {
-    "greet" : say_hello,
+    "introduce" : say_hello,
     "google" : open_google,
     "youtube" : open_youtube,
     "linkdin" : open_linkdin,
@@ -53,5 +67,7 @@ COMMANDS = {
     "down" : scroll_down,
     "up" : scroll_up,
     "type" : write,
+    "gesture control" : gesture_control,
     "exit" : exit
 }
+
