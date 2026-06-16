@@ -1,6 +1,17 @@
 import cv2
 import mediapipe as mp
 import keyboard
+import time
+import pyttsx3
+from voice import speak
+import pyautogui
+
+
+def speak(text):
+    engine = pyttsx3.init()
+    engine.say(text)
+    engine.runAndWait()
+
 
 BaseOptions = mp.tasks.BaseOptions
 GestureRecognizer = mp.tasks.vision.GestureRecognizer
@@ -8,6 +19,8 @@ GestureRecognizerOptions = mp.tasks.vision.GestureRecognizerOptions
 RunningMode = mp.tasks.vision.RunningMode
 
 def start_gesture_control():
+    speak("Initializing gesture control...")
+
     options = GestureRecognizerOptions(
         base_options=BaseOptions(
             model_asset_path="backend/models/gesture_recognizer.task"
@@ -42,8 +55,22 @@ def start_gesture_control():
             gesture = result.gestures[0][0].category_name
 
         if gesture != last_gesture:
-            print("Gesture:", gesture)
+            # print("Gesture:", gesture)
             last_gesture = gesture
+
+            if gesture == "Victory":
+                # print("Scrolling Down")
+                pyautogui.scroll(-500)
+
+            elif gesture == "Pointing_Up":
+                # print("Scrolling up")
+                pyautogui.scroll(500)
+
+            elif gesture == "Closed_Fist":
+                break
+
+
+            
 
         cv2.putText(
             frame,
@@ -55,16 +82,18 @@ def start_gesture_control():
             2
         )
 
-        cv2.imshow("Atlas Vision", frame)
+        # cv2.imshow("Atlas Vision", frame)
 
         key = cv2.waitKey(1) & 0xFF
 
         
-        if key == 27 or keyboard.is_pressed("esc"):
+        if key == 27:
             print("Thanks For Visiting")
             break
 
 
     cap.release()
     cv2.destroyAllWindows()
+    speak("Gesture control disabled...")
 
+# start_gesture_control()

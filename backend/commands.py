@@ -5,11 +5,12 @@ import webbrowser
 import time
 import sys
 import pyttsx3
+from voice import speak
 from vision.gesture_control import *
 
-engine = pyttsx3.init()
 
 def speak(text):
+    engine = pyttsx3.init()
     engine.say(text)
     engine.runAndWait()
 
