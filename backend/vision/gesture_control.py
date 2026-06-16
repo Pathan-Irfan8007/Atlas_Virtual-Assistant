@@ -2,15 +2,9 @@ import cv2
 import mediapipe as mp
 import keyboard
 import time
-import pyttsx3
 from voice import speak
 import pyautogui
 
-
-def speak(text):
-    engine = pyttsx3.init()
-    engine.say(text)
-    engine.runAndWait()
 
 
 BaseOptions = mp.tasks.BaseOptions

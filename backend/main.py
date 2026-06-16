@@ -43,8 +43,10 @@ if __name__ == "__main__" :
     while True:
         initialize = take_command()
         if "wake up" in initialize.lower():
-            print("Hello I am Atlas, a virtual assistant")
-            speak("Hello I am Atlas, a virtual assistant")
+            speak("")
+            time.sleep(0.5)
+            print("Welcome back Chief")
+            speak("Welcome back Chief")
             
 
             while True:
