@@ -6,6 +6,7 @@ import time
 import sys
 from voice import speak
 from vision.gesture_control import *
+from wikipedia_search import *
 
 
 
@@ -47,6 +48,10 @@ def write(command):
 def gesture_control(command):
     start_gesture_control()
 
+def search(command):
+    result = wikipedia_answer(command)
+    speak(result)
+
 def exit(command):
     sys.exit()
 
@@ -65,6 +70,10 @@ COMMANDS = {
     "up" : scroll_up,
     "type" : write,
     "gesture control" : gesture_control,
+    "what" : search,
+    "tell" : search,
+    "who" : search,
+    "define" :search,
     "exit" : exit
 }
 
